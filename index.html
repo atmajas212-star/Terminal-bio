@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PEGASUS SPYWARE - CORE ACTIVE</title>
+    <title>PEGASUS SPYWARE - ACTIVE</title>
     <style>
         * {
             box-sizing: border-box;
@@ -30,19 +30,6 @@
             margin-bottom: 8px;
             white-space: pre-wrap;
         }
-        .ascii-art {
-            color: #00FF00;
-            font-family: 'Courier New', Courier, monospace;
-            white-space: pre;
-            font-size: 8px;
-            line-height: 1.1;
-            letter-spacing: 0px;
-            margin: 25px 0;
-            display: none;
-            text-shadow: 0 0 8px #00FF00;
-            font-weight: bold;
-            text-align: left;
-        }
         .sys-info {
             color: #ffffff;
             border-top: 1px dashed #ff0000;
@@ -54,6 +41,33 @@
             color: #ff0000;
             font-weight: bold;
             text-shadow: 0 0 5px #ff0000;
+        }
+        /* Style untuk Tahap Akhir: Layar Bersih & Tengkorak di Tengah */
+        .laughing-stage {
+            display: none;
+            text-align: center;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+        .ascii-frame {
+            color: #00FF00;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre;
+            font-size: 11px;
+            line-height: 1.1;
+            letter-spacing: 0px;
+            text-shadow: 0 0 10px #00FF00;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .warning-text {
+            color: #ff0000;
+            font-weight: bold;
+            font-size: 18px;
+            text-shadow: 0 0 8px #ff0000;
+            animation: pulse 1s infinite alternate;
         }
         .cursor {
             display: inline-block;
@@ -67,85 +81,132 @@
         @keyframes blink {
             50% { opacity: 0; }
         }
+        @keyframes pulse {
+            from { opacity: 0.4; }
+            to { opacity: 1; }
+        }
         @media (max-width: 600px) {
-            .ascii-art {
-                font-size: 3.8px;
+            .ascii-frame {
+                font-size: 6.5px;
             }
-            body {
-                font-size: 11px;
-                padding: 10px;
+            .warning-text {
+                font-size: 14px;
             }
         }
     </style>
 </head>
 <body>
 
-<div class="terminal-window">
+<!-- TAHAP 1: Layar Koding & Pelacakan Data -->
+<div class="terminal-window" id="terminal-screen">
     <div id="log-output"></div>
-    
-    <!-- GABUNGAN ASCII TENGKORAK & TULISAN ATMAJA -->
-    <pre class="ascii-art" id="ascii">
-                 ______
-              .-"      "-.
-             /  *    *    \
 
-            |              |
-            |,  .-.  .-.  ,|
-            | )(__/  \__)( |
-            |/     /\     \|
-            (_     ^^     _)
-             \__|IIIIII|__/
-
-              | \IIIIII/ |
-              \          /
-               `--------`
-
- █████  ████████ ███    ███  █████      ██  █████  
-██   ██    ██    ████  ████ ██   ██     ██ ██   ██ 
-███████    ██    ██ ████ ██ ███████     ██ ███████ 
-██   ██    ██    ██  ██  ██ ██   ██ ██  ██ ██   ██ 
-██   ██    ██    ██      ██ ██   ██  ████  ██   ██ 
-
-     [+] INFEKSI PEGASUS DIKENDALIKAN ATMAJA [+]
-    </pre>
-
-    <!-- Informasi Status Penyadapan Merah -->
     <div class="sys-info" id="device-details">
-        [!] STATUS INFEKSI SPYWARE KE PERANGKAT<br>
+        [!] STATUS INFEKSI SPYWARE KE PERANGKAT:<br>
         ------------------------------------<br>
         • METODE INTRUSI   : <span style="color:#00FF00;">Zero-Click Remote Exploit</span><br>
-        • MODUL SPY TRACKER: <span style="color:#00FF00;">Aktif (Penyadapan Latar Belakang)</span><br>
+        • PERANGKAT TARGET : <span style="color:#00FF00;" id="os-info">Mendeteksi...</span><br>
+        • ESTIMASI LOKASI  : <span style="color:#00FF00;" id="location-info">Mencari Koordinat...</span><br>
         • EKSTRAKSI DATA   : <span class="info-value">Daftar Kontak, Foto, & Mikrofon</span><br>
         • STATUS PERANGKAT : <span class="info-value">TERINFEKSI SECARA TOTAL</span>
     </div>
 </div>
 
+<!-- TAHAP 2: Layar Bersih Total + Muncul Tengkorak Bergerak -->
+<div class="laughing-stage" id="laugh-screen">
+    <pre class="ascii-frame" id="ascii-anim"></pre>
+    <div class="warning-text">YOU HAVE BEEN HACKED BY ATMAJA<br>SYSTEM COMPROMISED: HAHAHAHAHAHAHA!</div>
+</div>
+
 <script>
     const outputDiv = document.getElementById('log-output');
-    const asciiArt = document.getElementById('ascii');
+    const terminalScreen = document.getElementById('terminal-screen');
     const deviceDetails = document.getElementById('device-details');
+    const laughScreen = document.getElementById('laugh-screen');
+    const asciiAnim = document.getElementById('ascii-anim');
 
-    // Proses Simulasi Pegasus Versi Bahasa Inggris ala Hacker
+    // Bingkai 1: Mulut Tertutup
+    const frame1 = `
+           ______
+        .-"      "-.
+       /  *    *    \\
+
+      |              |
+      |,  .-.  .-.  ,|
+      | )(__/  \\__)( |
+      |/     /\\     \\|
+      (_     ^^     _)
+       \\__|IIIIII|__/
+
+        | \\IIIIII/ |
+        \\          /
+         \`--------\`
+    `;
+
+    // Bingkai 2: Mulut Terbuka
+    const frame2 = `
+           ______
+        .-"      "-.
+       /  *    *    \\
+
+      |              |
+      |,  .-.  .-.  ,|
+      | )(__/  \\__)( |
+      |/     /\\     \\|
+      (_     ^^     _)
+       \\__|      |__/
+
+        |  \\IIII/  |
+        \\  IIIIII  /
+         \`--------\`
+    `;
+
     const commands = [
         { type: 'type', text: '$ ./pegasus_spy_tracker --target-device', delay: 50 },
         { type: 'write', text: '[*] Scanning core components... [OK]', delay: 400 },
-        { type: 'write', text: '[*] Injecting Zero-Click Payload into system framework...', delay: 500 },
-        { type: 'progress', label: '[>] Downloading payload data... ', delay: 100 },
-        { type: 'write', text: '[+] Bypass Android/iOS Sandbox: SUCCESSFUL', delay: 600 },
+        { type: 'write', text: '[*] Injecting Zero-Click Payload into system framework...', delay: 400 },
+        { type: 'progress', label: '[>] Downloading payload data... ', delay: 90 },
+        { type: 'write', text: '[+] Bypass Android/iOS Sandbox: SUCCESSFUL', delay: 500 },
         { type: 'write', text: '[+] Establishing encrypted backdoor to ATMAJA_SERVER...', delay: 400 },
-        { type: 'write', text: '\n[!] CAUTION: SPYWARE OVERLAY INJECTED!', delay: 300 },
-        { type: 'show-ascii', delay: 200 }
+        { type: 'write', text: '\n[!] STATUS: INFECTION COMPLETE. EXTRACTING HARDWARE DATA...', delay: 500 }
     ];
 
     let commandIndex = 0;
 
+    function getTrackerData() {
+        const userAgent = navigator.userAgent;
+        let os = "Perangkat Tidak Dikenal";
+
+        if (/android/i.test(userAgent)) {
+            os = "HP Android Mobile";
+        } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+            os = "iPhone / iPad Apple";
+        } else if (/Windows/i.test(userAgent)) {
+            os = "PC / Laptop Windows";
+        } else if (/Macintosh/i.test(userAgent)) {
+            os = "Perangkat macOS";
+        } else if (/Linux/i.test(userAgent)) {
+            os = "Sistem Linux OS";
+        }
+        document.getElementById('os-info').innerText = os;
+
+        fetch('https://ipapi.co')
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('location-info').innerText = `${data.city || 'Sidoarjo'}, ${data.country_name || 'Indonesia'}`;
+            })
+            .catch(() => {
+                document.getElementById('location-info').innerText = "Jawa Timur, Indonesia (Proxy Aktif)";
+            });
+    }
+
     function runNextCommand() {
         if (commandIndex >= commands.length) {
+            getTrackerData();
             deviceDetails.style.display = 'block';
             
-            const cursor = document.createElement('span');
-            cursor.className = 'cursor';
-            outputDiv.appendChild(cursor);
+            // Diam di layar pelacakan selama 3.5 detik agar pengunjung sempat membaca datanya
+            setTimeout(clearAndSwitchToSkull, 3500);
             return;
         }
 
@@ -193,12 +254,27 @@
             outputDiv.appendChild(line);
             commandIndex++;
             setTimeout(runNextCommand, cmd.delay);
-
-        } else if (cmd.type === 'show-ascii') {
-            asciiArt.style.display = 'block';
-            commandIndex++;
-            setTimeout(runNextCommand, cmd.delay);
         }
+    }
+
+    // Fungsi membersihkan seluruh layar dan memindahkan tengkorak ke tengah
+    function clearAndSwitchToSkull() {
+        // 1. Bersihkan layar pelacakan (Sembunyikan total)
+        terminalScreen.style.display = 'none';
+        
+        // 2. Ubah tata letak body agar tengkorak berada tepat di tengah layar HP
+        document.body.style.justifyContent = 'center';
+        document.body.style.alignItems = 'center';
+        
+        // 3. Munculkan layar tengkorak tertawa
+        laughScreen.style.display = 'flex';
+        
+        // 4. Jalankan animasi mulut bergerak
+        let toggle = true;
+        setInterval(() => {
+            asciiAnim.textContent = toggle ? frame1 : frame2;
+            toggle = !toggle;
+        }, 200);
     }
 
     window.onload = () => {
