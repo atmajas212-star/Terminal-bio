@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AKSES SISTEM - ATMAJA</title>
+    <title>PEGASUS SPYWARE - CORE ACTIVE</title>
     <style>
         * {
             box-sizing: border-box;
@@ -30,7 +30,6 @@
             margin-bottom: 8px;
             white-space: pre-wrap;
         }
-        /* ASCII Combo: Tengkorak + Tulisan ATMAJA */
         .ascii-art {
             color: #00FF00;
             font-family: 'Courier New', Courier, monospace;
@@ -46,14 +45,15 @@
         }
         .sys-info {
             color: #ffffff;
-            border-top: 1px dashed #00FF00;
+            border-top: 1px dashed #ff0000;
             padding-top: 15px;
             margin-top: 20px;
             display: none;
         }
         .info-value {
-            color: #00FF00;
+            color: #ff0000;
             font-weight: bold;
+            text-shadow: 0 0 5px #ff0000;
         }
         .cursor {
             display: inline-block;
@@ -106,16 +106,17 @@
 ██   ██    ██    ██  ██  ██ ██   ██ ██  ██ ██   ██ 
 ██   ██    ██    ██      ██ ██   ██  ████  ██   ██ 
 
-      [+] SISTEM DIKUASAI OLEH ATMAJA [+]
+     [+] INFEKSI PEGASUS DIKENDALIKAN ATMAJA [+]
     </pre>
 
-    <!-- Informasi Deteksi Perangkat & Lokasi -->
+    <!-- Informasi Status Penyadapan Merah -->
     <div class="sys-info" id="device-details">
-        [>] MENYALIP INFORMASI PENGUNJUNG:<br>
-        --------------------------------<br>
-        • PERANGKAT YANG DIGUNAKAN : <span class="info-value" id="os-info">Mendeteksi...</span><br>
-        • PERKIRAAN LOKASI         : <span class="info-value" id="location-info">Mencari Koordinat...</span><br>
-        • STATUS KONEKSI           : <span class="info-value" style="color:red; text-shadow: 0 0 5px red;">TERPANTAU</span>
+        [!] STATUS INFEKSI SPYWARE KE PERANGKAT<br>
+        ------------------------------------<br>
+        • METODE INTRUSI   : <span style="color:#00FF00;">Zero-Click Remote Exploit</span><br>
+        • MODUL SPY TRACKER: <span style="color:#00FF00;">Aktif (Penyadapan Latar Belakang)</span><br>
+        • EKSTRAKSI DATA   : <span class="info-value">Daftar Kontak, Foto, & Mikrofon</span><br>
+        • STATUS PERANGKAT : <span class="info-value">TERINFEKSI SECARA TOTAL</span>
     </div>
 </div>
 
@@ -124,50 +125,22 @@
     const asciiArt = document.getElementById('ascii');
     const deviceDetails = document.getElementById('device-details');
 
-    // Perintah & proses kembali ke Bahasa Inggris (Linux Standard)
+    // Proses Simulasi Pegasus Versi Bahasa Inggris ala Hacker
     const commands = [
-        { type: 'type', text: '$ sudo apt-get install happiness', delay: 60 },
-        { type: 'progress', label: '> loading... ', delay: 120 },
-        { type: 'write', text: '> setting up happiness... [DONE]', delay: 600 },
-        { type: 'type', text: '$ cd /database/data', delay: 60 },
-        { type: 'type', text: '$ ./atmaja.sh', delay: 60 },
-        { type: 'write', text: '\n[!] ACCESS GRANTED TO AREA: ATMAJA_ROOT', delay: 400 },
+        { type: 'type', text: '$ ./pegasus_spy_tracker --target-device', delay: 50 },
+        { type: 'write', text: '[*] Scanning core components... [OK]', delay: 400 },
+        { type: 'write', text: '[*] Injecting Zero-Click Payload into system framework...', delay: 500 },
+        { type: 'progress', label: '[>] Downloading payload data... ', delay: 100 },
+        { type: 'write', text: '[+] Bypass Android/iOS Sandbox: SUCCESSFUL', delay: 600 },
+        { type: 'write', text: '[+] Establishing encrypted backdoor to ATMAJA_SERVER...', delay: 400 },
+        { type: 'write', text: '\n[!] CAUTION: SPYWARE OVERLAY INJECTED!', delay: 300 },
         { type: 'show-ascii', delay: 200 }
     ];
 
     let commandIndex = 0;
 
-    function getTrackerData() {
-        const userAgent = navigator.userAgent;
-        let os = "Komputer / Perangkat Tidak Dikenal";
-
-        if (/android/i.test(userAgent)) {
-            os = "HP Android Mobile";
-        } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-            os = "iPhone / iPad Apple";
-        } else if (/Windows/i.test(userAgent)) {
-            os = "PC / Laptop Windows";
-        } else if (/Macintosh/i.test(userAgent)) {
-            os = "Perangkat macOS X";
-        } else if (/Linux/i.test(userAgent)) {
-            os = "Sistem Linux OS";
-        }
-        document.getElementById('os-info').innerText = os;
-
-        fetch('https://ipapi.co')
-            .then(response => response.json())
-            .then(data => {
-                const lokasi = `${data.city || 'Tidak Diketahui'}, ${data.country_name || 'Luar Negeri'}`;
-                document.getElementById('location-info').innerText = lokasi;
-            })
-            .catch(() => {
-                document.getElementById('location-info').innerText = "Gagal memindai jaringan";
-            });
-    }
-
     function runNextCommand() {
         if (commandIndex >= commands.length) {
-            getTrackerData();
             deviceDetails.style.display = 'block';
             
             const cursor = document.createElement('span');
@@ -235,4 +208,3 @@
 
 </body>
 </html>
-
