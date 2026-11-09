@@ -42,33 +42,56 @@
             font-weight: bold;
             text-shadow: 0 0 5px #ff0000;
         }
-        /* Style untuk Tahap Akhir: Layar Bersih & Tengkorak di Tengah */
-        .laughing-stage {
+        
+        /* TULISAN GLITCH 3D NEON BESAR */
+        .glitch-stage {
             display: none;
             text-align: center;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             width: 100%;
+            height: 80vh;
         }
-        .ascii-frame {
-            color: #00FF00;
-            font-family: 'Courier New', Courier, monospace;
-            white-space: pre;
-            font-size: 11px;
-            line-height: 1.1;
-            letter-spacing: 0px;
-            text-shadow: 0 0 10px #00FF00;
+        .glitch-title {
+            font-size: 38px;
+            font-weight: 900;
+            text-transform: uppercase;
+            position: relative;
+            color: #ff0055;
+            text-shadow: 3px 3px 0px #00ffff, -3px -3px 0px #ff0055, 0 0 20px #ff0055;
+            margin: 0;
+            letter-spacing: 2px;
+            animation: glitch-anim 0.3s infinite alternate;
+        }
+        .glitch-subtitle {
+            font-size: 24px;
             font-weight: bold;
-            margin-bottom: 20px;
+            color: #00ffff;
+            text-shadow: 2px 2px 0px #ff0055, 0 0 15px #00ffff;
+            margin-top: 15px;
+            letter-spacing: 4px;
+            animation: glitch-anim 0.4s infinite alternate-reverse;
         }
-        .warning-text {
-            color: #ff0000;
-            font-weight: bold;
-            font-size: 18px;
-            text-shadow: 0 0 8px #ff0000;
-            animation: pulse 1s infinite alternate;
+        
+        @keyframes glitch-anim {
+            0% {
+                transform: translate(2px, 1px) skew(0deg);
+                text-shadow: 3px 3px 0px #00ffff, -3px -3px 0px #ff0055;
+            }
+            20% { transform: translate(-1px, -2px) skew(1deg); }
+            40% {
+                transform: translate(0px, 2px) skew(-1deg);
+                text-shadow: -2px 2px 0px #00ffff, 3px -3px 0px #ff0055;
+            }
+            60% { transform: translate(2px, -1px) skew(0deg); }
+            80% {
+                transform: translate(-2px, 1px) skew(2deg);
+                text-shadow: 4px 1px 0px #00ffff, -4px -1px 0px #ff0055;
+            }
+            100% { transform: translate(1px, -2px) skew(-1deg); }
         }
+        
         .cursor {
             display: inline-block;
             width: 8px;
@@ -78,88 +101,42 @@
             vertical-align: middle;
             margin-left: 3px;
         }
-        @keyframes blink {
-            50% { opacity: 0; }
-        }
-        @keyframes pulse {
-            from { opacity: 0.4; }
-            to { opacity: 1; }
-        }
+        @keyframes blink { 50% { opacity: 0; } }
         @media (max-width: 600px) {
-            .ascii-frame {
-                font-size: 6.5px;
-            }
-            .warning-text {
-                font-size: 14px;
-            }
+            .glitch-title { font-size: 26px; }
+            .glitch-subtitle { font-size: 18px; }
+            body { font-size: 11px; padding: 10px; }
         }
     </style>
 </head>
 <body>
 
-<!-- TAHAP 1: Layar Koding & Pelacakan Data -->
 <div class="terminal-window" id="terminal-screen">
     <div id="log-output"></div>
 
+    <!-- Hasil Modifikasi Kolom Pelacakan Lokasi Baru -->
     <div class="sys-info" id="device-details">
-        [!] STATUS INFEKSI SPYWARE KE PERANGKAT:<br>
+        [!] STATUS INFEKSI SPYWARE LENGKAP:<br>
         ------------------------------------<br>
         • METODE INTRUSI   : <span style="color:#00FF00;">Zero-Click Remote Exploit</span><br>
         • PERANGKAT TARGET : <span style="color:#00FF00;" id="os-info">Mendeteksi...</span><br>
-        • ESTIMASI LOKASI  : <span style="color:#00FF00;" id="location-info">Mencari Koordinat...</span><br>
+        • NODE ROUTING     : <span style="color:#00FF00;">[ID] -> [SG] -> [US] -> [CONNECTED]</span><br>
+        • SATELIT PENGUNCI : <span style="color:#00FF00;" id="satellite-info">Mencari Orbit...</span><br>
         • EKSTRAKSI DATA   : <span class="info-value">Daftar Kontak, Foto, & Mikrofon</span><br>
         • STATUS PERANGKAT : <span class="info-value">TERINFEKSI SECARA TOTAL</span>
     </div>
 </div>
 
-<!-- TAHAP 2: Layar Bersih Total + Muncul Tengkorak Bergerak -->
-<div class="laughing-stage" id="laugh-screen">
-    <pre class="ascii-frame" id="ascii-anim"></pre>
-    <div class="warning-text">YOU HAVE BEEN HACKED BY ATMAJA<br>SYSTEM COMPROMISED: HAHAHAHAHAHAHA!</div>
+<div class="glitch-stage" id="glitch-screen">
+    <h1 class="glitch-title">SYSTEM COMPROMISED</h1>
+    <div class="glitch-subtitle">BY ATMAJA</div>
 </div>
 
 <script>
     const outputDiv = document.getElementById('log-output');
     const terminalScreen = document.getElementById('terminal-screen');
     const deviceDetails = document.getElementById('device-details');
-    const laughScreen = document.getElementById('laugh-screen');
-    const asciiAnim = document.getElementById('ascii-anim');
-
-    // Bingkai 1: Mulut Tertutup
-    const frame1 = `
-           ______
-        .-"      "-.
-       /  *    *    \\
-
-      |              |
-      |,  .-.  .-.  ,|
-      | )(__/  \\__)( |
-      |/     /\\     \\|
-      (_     ^^     _)
-       \\__|IIIIII|__/
-
-        | \\IIIIII/ |
-        \\          /
-         \`--------\`
-    `;
-
-    // Bingkai 2: Mulut Terbuka
-    const frame2 = `
-           ______
-        .-"      "-.
-       /  *    *    \\
-
-      |              |
-      |,  .-.  .-.  ,|
-      | )(__/  \\__)( |
-      |/     /\\     \\|
-      (_     ^^     _)
-       \\__|      |__/
-
-        |  \\IIII/  |
-        \\  IIIIII  /
-         \`--------\`
-    `;
+    const glitchScreen = document.getElementById('glitch-screen');
 
     const commands = [
         { type: 'type', text: '$ ./pegasus_spy_tracker --target-device', delay: 50 },
@@ -178,7 +155,7 @@
         let os = "Perangkat Tidak Dikenal";
 
         if (/android/i.test(userAgent)) {
-            os = "HP Android Mobile";
+            os = "Android Mobile";
         } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
             os = "iPhone / iPad Apple";
         } else if (/Windows/i.test(userAgent)) {
@@ -190,23 +167,17 @@
         }
         document.getElementById('os-info').innerText = os;
 
-        fetch('https://ipapi.co')
-            .then(res => res.json())
-            .then(data => {
-                document.getElementById('location-info').innerText = `${data.city || 'Sidoarjo'}, ${data.country_name || 'Indonesia'}`;
-            })
-            .catch(() => {
-                document.getElementById('location-info').innerText = "Jawa Timur, Indonesia (Proxy Aktif)";
-            });
+        // Simulasi koordinat satelit militer acak untuk menggantikan teks gagal lacak lokasi
+        const satList = ["PANGEO-3X (Military)", "CYBER-EYE-v4", "NORD-GATE-S2", "ORION-TRACK-X"];
+        const randomSat = satList[Math.floor(Math.random() * satList.length)];
+        document.getElementById('satellite-info').innerText = randomSat;
     }
 
     function runNextCommand() {
         if (commandIndex >= commands.length) {
             getTrackerData();
             deviceDetails.style.display = 'block';
-            
-            // Diam di layar pelacakan selama 3.5 detik agar pengunjung sempat membaca datanya
-            setTimeout(clearAndSwitchToSkull, 3500);
+            setTimeout(clearAndSwitchToGlitch, 3500);
             return;
         }
 
@@ -257,24 +228,11 @@
         }
     }
 
-    // Fungsi membersihkan seluruh layar dan memindahkan tengkorak ke tengah
-    function clearAndSwitchToSkull() {
-        // 1. Bersihkan layar pelacakan (Sembunyikan total)
+    function clearAndSwitchToGlitch() {
         terminalScreen.style.display = 'none';
-        
-        // 2. Ubah tata letak body agar tengkorak berada tepat di tengah layar HP
         document.body.style.justifyContent = 'center';
         document.body.style.alignItems = 'center';
-        
-        // 3. Munculkan layar tengkorak tertawa
-        laughScreen.style.display = 'flex';
-        
-        // 4. Jalankan animasi mulut bergerak
-        let toggle = true;
-        setInterval(() => {
-            asciiAnim.textContent = toggle ? frame1 : frame2;
-            toggle = !toggle;
-        }, 200);
+        glitchScreen.style.display = 'flex';
     }
 
     window.onload = () => {
