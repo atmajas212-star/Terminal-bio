@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PEGASUS SPYWARE - ACTIVE</title>
+    <title>PEGASUS SPYWARE - CORE ACTIVE</title>
     <style>
         * {
             box-sizing: border-box;
@@ -30,6 +30,19 @@
             margin-bottom: 8px;
             white-space: pre-wrap;
         }
+        .ascii-art {
+            color: #00FF00;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre;
+            font-size: 8px;
+            line-height: 1.1;
+            letter-spacing: 0px;
+            margin: 25px 0;
+            display: none;
+            text-shadow: 0 0 8px #00FF00;
+            font-weight: bold;
+            text-align: left;
+        }
         .sys-info {
             color: #ffffff;
             border-top: 1px dashed #ff0000;
@@ -42,37 +55,6 @@
             font-weight: bold;
             text-shadow: 0 0 5px #ff0000;
         }
-        .post-tracking-stage {
-            display: none;
-            margin-top: 15px;
-        }
-        .laughing-stage {
-            display: none;
-            margin-top: 35px;
-            text-align: left;
-            border-top: 1px dashed #00FF00;
-            padding-top: 20px;
-        }
-        .ascii-frame {
-            color: #00FF00;
-            font-family: 'Courier New', Courier, monospace;
-            white-space: pre;
-            font-size: 10px;
-            line-height: 1.1;
-            letter-spacing: 0px;
-            text-shadow: 0 0 8px #00FF00;
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-        .warning-text {
-            color: #ff0000;
-            font-weight: bold;
-            font-size: 18px;
-            text-shadow: 0 0 8px #ff0000;
-            animation: pulse 0.8s infinite alternate;
-            letter-spacing: 1px;
-            margin-top: 10px;
-        }
         .cursor {
             display: inline-block;
             width: 8px;
@@ -82,15 +64,17 @@
             vertical-align: middle;
             margin-left: 3px;
         }
-        @keyframes blink { 50% { opacity: 0; } }
-        @keyframes pulse {
-            from { opacity: 0.4; }
-            to { opacity: 1; }
+        @keyframes blink {
+            50% { opacity: 0; }
         }
         @media (max-width: 600px) {
-            .ascii-frame { font-size: 6px; }
-            body { font-size: 11px; padding: 10px; }
-            .warning-text { font-size: 14px; }
+            .ascii-art {
+                font-size: 3.8px;
+            }
+            body {
+                font-size: 11px;
+                padding: 10px;
+            }
         }
     </style>
 </head>
@@ -98,112 +82,70 @@
 
 <div class="terminal-window">
     <div id="log-output"></div>
+    
+    <!-- GABUNGAN ASCII TENGKORAK & TULISAN ATMAJA -->
+    <pre class="ascii-art" id="ascii">
+                 ______
+              .-"      "-.
+             /  *    *    \
 
+            |              |
+            |,  .-.  .-.  ,|
+            | )(__/  \__)( |
+            |/     /\     \|
+            (_     ^^     _)
+             \__|IIIIII|__/
+
+              | \IIIIII/ |
+              \          /
+               `--------`
+
+ █████  ████████ ███    ███  █████      ██  █████  
+██   ██    ██    ████  ████ ██   ██     ██ ██   ██ 
+███████    ██    ██ ████ ██ ███████     ██ ███████ 
+██   ██    ██    ██  ██  ██ ██   ██ ██  ██ ██   ██ 
+██   ██    ██    ██      ██ ██   ██  ████  ██   ██ 
+
+     [+] INFEKSI PEGASUS DIKENDALIKAN ATMAJA [+]
+    </pre>
+
+    <!-- Informasi Status Penyadapan Merah -->
     <div class="sys-info" id="device-details">
         [!] STATUS INFEKSI SPYWARE KE PERANGKAT:<br>
         ------------------------------------<br>
         • METODE INTRUSI   : <span style="color:#00FF00;">Zero-Click Remote Exploit</span><br>
-        • PERANGKAT TARGET : <span style="color:#00FF00;" id="os-info">Mendeteksi...</span><br>
-        • NODE ROUTING     : <span style="color:#00FF00;">[ID] -> [SG] -> [US] -> [CONNECTED]</span><br>
-        • SATELIT PENGUNCI : <span style="color:#00FF00;" id="satellite-info">Mencari Orbit...</span><br>
+        • MODUL SPY TRACKER: <span style="color:#00FF00;">Aktif (Penyadapan Latar Belakang)</span><br>
         • EKSTRAKSI DATA   : <span class="info-value">Daftar Kontak, Foto, & Mikrofon</span><br>
         • STATUS PERANGKAT : <span class="info-value">TERINFEKSI SECARA TOTAL</span>
-    </div>
-
-    <div class="post-tracking-stage" id="transmission-screen">
-        <div id="transmission-output"></div>
-    </div>
-
-    <div class="laughing-stage" id="laugh-screen">
-        <pre class="ascii-frame" id="ascii-anim"></pre>
-        <div class="warning-text">YOU HAVE BEEN HACKED BY ATMAJA</div>
     </div>
 </div>
 
 <script>
     const outputDiv = document.getElementById('log-output');
+    const asciiArt = document.getElementById('ascii');
     const deviceDetails = document.getElementById('device-details');
-    const transmissionScreen = document.getElementById('transmission-screen');
-    const transmissionOutput = document.getElementById('transmission-output');
-    const laughScreen = document.getElementById('laugh-screen');
-    const asciiAnim = document.getElementById('ascii-anim');
 
-    const frame1 = `
-           ______
-        .-"      "-.
-       /  *    *    \\
-
-      |              |
-      |,  .-.  .-.  ,|
-      | )(__/  \\__)( |
-      |/     /\\     \\|
-      (_     ^^     _)
-       \\__|IIIIII|__/
-
-        | \\IIIIII/ |
-        \\          /
-         \`--------\`
-    `;
-
-    const frame2 = `
-           ______
-        .-"      "-.
-       /  *    *    \\
-
-      |              |
-      |,  .-.  .-.  ,|
-      | )(__/  \\__)( |
-      |/     /\\     \\|
-      (_     ^^     _)
-       \\__|      |__/
-
-        |  \\IIII/  |
-        \\  IIIIII  /
-         \`--------\`
-    `;
-
+    // Proses Simulasi Pegasus Versi Bahasa Inggris ala Hacker
     const commands = [
         { type: 'type', text: '$ ./pegasus_spy_tracker --target-device', delay: 50 },
         { type: 'write', text: '[*] Scanning core components... [OK]', delay: 400 },
-        { type: 'write', text: '[*] Injecting Zero-Click Payload into system framework...', delay: 400 },
-        { type: 'progress', label: '[>] Downloading payload data... ', delay: 90 },
-        { type: 'write', text: '[+] Bypass Android/iOS Sandbox: SUCCESSFUL', delay: 500 },
+        { type: 'write', text: '[*] Injecting Zero-Click Payload into system framework...', delay: 500 },
+        { type: 'progress', label: '[>] Downloading payload data... ', delay: 100 },
+        { type: 'write', text: '[+] Bypass Android/iOS Sandbox: SUCCESSFUL', delay: 600 },
         { type: 'write', text: '[+] Establishing encrypted backdoor to ATMAJA_SERVER...', delay: 400 },
-        { type: 'write', text: '\n[!] STATUS: INFECTION COMPLETE. DEPLOYING DETECTOR...', delay: 500 }
+        { type: 'write', text: '\n[!] CAUTION: SPYWARE OVERLAY INJECTED!', delay: 300 },
+        { type: 'show-ascii', delay: 200 }
     ];
 
     let commandIndex = 0;
 
-    function getTrackerData() {
-        const userAgent = navigator.userAgent;
-        let os = "Perangkat Tidak Dikenal";
-
-        // Memperkuat deteksi iPhone/iPad yang disamarkan oleh sistem iOS terbaru
-        const isIOS = /iPad|iPhone|iPod/.test(userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-
-        if (/android/i.test(userAgent)) { 
-            os = "HP Android Mobile"; 
-        } else if (isIOS) { 
-            os = "iPhone / iPad Apple"; 
-        } else if (/Windows/i.test(userAgent)) { 
-            os = "PC / Laptop Windows"; 
-        } else if (/Macintosh/i.test(userAgent)) { 
-            os = "Perangkat macOS"; 
-        } else if (/Linux/i.test(userAgent)) { 
-            os = "Sistem Linux OS"; 
-        }
-        document.getElementById('os-info').innerText = os;
-
-        const satList = ["PANGEO-3X (Military)", "CYBER-EYE-v4", "NORD-GATE-S2", "ORION-TRACK-X"];
-        const randomSat = satList[Math.floor(Math.random() * satList.length)];
-        document.getElementById('satellite-info').innerText = randomSat;
-    }
-
     function runNextCommand() {
         if (commandIndex >= commands.length) {
-            getTrackerData();
             deviceDetails.style.display = 'block';
-            setTimeout(startDataTransmission, 1000);
+            
+            const cursor = document.createElement('span');
+            cursor.className = 'cursor';
+            outputDiv.appendChild(cursor);
             return;
         }
 
@@ -248,43 +190,22 @@
             const line = document.createElement('div');
             line.className = 'line';
             line.innerHTML = cmd.text;
+            outputDiv.appendChild(line);
+            commandIndex++;
+            setTimeout(runNextCommand, cmd.delay);
+
+        } else if (cmd.type === 'show-ascii') {
+            asciiArt.style.display = 'block';
             commandIndex++;
             setTimeout(runNextCommand, cmd.delay);
         }
     }
 
-    function startDataTransmission() {
-        transmissionScreen.style.display = 'block';
-        
-        const lineProgress = document.createElement('div');
-        lineProgress.className = 'line';
-        transmissionOutput.appendChild(lineProgress);
-        
-        let pct = 0;
-        const sendLoader = setInterval(() => {
-            pct += 10;
-            let blocks = '█'.repeat(pct / 10) + '░'.repeat(10 - (pct / 10));
-            lineProgress.innerHTML = `[>] Sending extracted data to ATMAJA_SERVER... [${blocks}] ${pct}%`;
-            
-            if (pct >= 100) {
-                clearInterval(sendLoader);
-                
-                const lineConfirm = document.createElement('div');
-                lineConfirm.className = 'line';
-                lineConfirm.innerHTML = `[+] Data transmission complete: 100% SECURE`;
-                transmissionOutput.appendChild(lineConfirm);
-                
-                setTimeout(startLaughingAnimation, 800);
-            }
-        }, 80);
-    }
+    window.onload = () => {
+        setTimeout(runNextCommand, 400);
+    };
+</script>
 
-    function startLaughingAnimation() {
-        laughScreen.style.display = 'block';
-        
-        let toggle = true;
-        setInterval(() => {
-            asciiAnim.textContent = toggle ? frame1 : frame2;
-            toggle = !toggle;
-        }, 220);
-        
+</body>
+</html>
+
