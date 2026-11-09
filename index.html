@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYSTEM ACCESS - ATMAJA</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #000000;
+            color: #00FF00;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 20px;
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        #access-screen {
+            text-align: center;
+        }
+        .btn-access {
+            background: transparent;
+            color: #00FF00;
+            border: 2px solid #00FF00;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-family: 'Courier New', Courier, monospace;
+            cursor: pointer;
+            box-shadow: 0 0 10px #00FF00;
+            text-shadow: 0 0 5px #00FF00;
+            font-weight: bold;
+        }
+        .btn-access:hover {
+            background: #00FF00;
+            color: #000000;
+            box-shadow: 0 0 20px #00FF00;
+        }
+        .terminal-window {
+            width: 100%;
+            max-width: 800px;
+            display: none;
+        }
+        .line {
+            margin-bottom: 8px;
+            white-space: pre-wrap;
+        }
+        /* ASCII Combo: Tengkorak + Tulisan ATMAJA */
+        .ascii-art {
+            color: #00FF00;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre;
+            font-size: 8px;
+            line-height: 1.1;
+            letter-spacing: 0px;
+            margin: 25px 0;
+            display: none;
+            text-shadow: 0 0 8px #00FF00;
+            font-weight: bold;
+            text-align: left;
+        }
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 15px;
+            background-color: #00FF00;
+            animation: blink 0.8s infinite;
+            vertical-align: middle;
+            margin-left: 3px;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+        @media (max-width: 600px) {
+            .ascii-art {
+                font-size: 3.8px; /* Mengecil otomatis di HP agar susunan gambar tidak hancur */
+            }
+            body {
+                font-size: 11px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div id="access-screen">
+    <button class="btn-access" onclick="startTerminal()">[ BYPASS SYSTEM & ENTER ]</button>
+</div>
+
+<div class="terminal-window" id="terminal-main">
+    <div id="log-output"></div>
+    
+    <!-- GABUNGAN ASII TENGKORAK & TULISAN ATMAJA -->
+    <pre class="ascii-art" id="ascii">
+                 ______
+              .-"      "-.
+             /  *    *    \
+
+            |              |
+            |,  .-.  .-.  ,|
+            | )(__/  \__)( |
+            |/     /\     \|
+            (_     ^^     _)
+             \__|IIIIII|__/
+
+              | \IIIIII/ |
+              \          /
+               `--------`
+
+ █████  ████████ ███    ███  █████      ██  █████  
+██   ██    ██    ████  ████ ██   ██     ██ ██   ██ 
+███████    ██    ██ ████ ██ ███████     ██ ███████ 
+██   ██    ██    ██  ██  ██ ██   ██ ██  ██ ██   ██ 
+██   ██    ██    ██      ██ ██   ██  ████  ██   ██ 
+
+      [+] SYSTEM COMPROMISED BY ATMAJA [+]
+    </pre>
+</div>
+
+<script>
+    const outputDiv = document.getElementById('log-output');
+    const asciiArt = document.getElementById('ascii');
+    const accessScreen = document.getElementById('access-screen');
+    const terminalMain = document.getElementById('terminal-main');
+
+    const commands = [
+        { type: 'type', text: '$ sudo apt-get install happiness', delay: 60 },
+        { type: 'progress', label: '> loading... ', delay: 120 },
+        { type: 'write', text: '> setting up happiness... [DONE]', delay: 600 },
+        { type: 'type', text: '$ cd /database/data', delay: 60 },
+        { type: 'type', text: '$ ./atmaja.sh', delay: 60 },
+        { type: 'write', text: '\n[!] ACCESS GRANTED TO AREA: ATMAJA_ROOT', delay: 400 },
+        { type: 'show-ascii', delay: 200 }
+    ];
+
+    let commandIndex = 0;
+
+    function startTerminal() {
+        accessScreen.style.display = 'none';
+        terminalMain.style.display = 'block';
+        setTimeout(runNextCommand, 300);
+    }
+
+    function runNextCommand() {
+        if (commandIndex >= commands.length) {
+            const cursor = document.createElement('span');
+            cursor.className = 'cursor';
+            outputDiv.appendChild(cursor);
+            return;
+        }
+
+        const cmd = commands[commandIndex];
+
+        if (cmd.type === 'type') {
+            const line = document.createElement('div');
+            line.className = 'line';
+            outputDiv.appendChild(line);
+            
+            let charIndex = 0;
+            const typer = setInterval(() => {
+                line.innerHTML = cmd.text.substring(0, charIndex) + '<span class="cursor"></span>';
+                charIndex++;
+                if (charIndex > cmd.text.length) {
+                    clearInterval(typer);
+                    line.innerHTML = cmd.text;
+                    commandIndex++;
+                    setTimeout(runNextCommand, cmd.delay);
+                }
+            }, cmd.delay);
+
+        } else if (cmd.type === 'progress') {
+            const line = document.createElement('div');
+            line.className = 'line';
+            outputDiv.appendChild(line);
+            
+            let pct = 0;
+            const loader = setInterval(() => {
+                pct += 10;
+                let blocks = '█'.repeat(pct / 10) + '░'.repeat(10 - (pct / 10));
+                line.innerHTML = `${cmd.label}[${blocks}] ${pct}%`;
+                
+                if (pct >= 100) {
+                    clearInterval(loader);
+                    commandIndex++;
+                    setTimeout(runNextCommand, cmd.delay);
+                }
+            }, cmd.delay);
+
+        } else if (cmd.type === 'write') {
+            const line = document.createElement('div');
+            line.className = 'line';
+            line.innerHTML = cmd.text;
+            outputDiv.appendChild(line);
+            commandIndex++;
+            setTimeout(runNextCommand, cmd.delay);
+
+        } else if (cmd.type === 'show-ascii') {
+            asciiArt.style.display = 'block';
+            commandIndex++;
+            setTimeout(runNextCommand, cmd.delay);
+        }
+    }
+</script>
+
+</body>
+</html>
